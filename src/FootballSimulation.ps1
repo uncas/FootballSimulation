@@ -1,4 +1,6 @@
-﻿function MatchResult {
+﻿$debug = $True
+
+function MatchResult {
     param ($team1Goals = 0, $team2Goals = 0)
     $this = "" | Select Team1Goals, Team2Goals
     $this.Team1Goals = $team1Goals
@@ -24,26 +26,36 @@ function MatchPrediction {
     return $this
 }
 
+function GetTime {
+    param ($seconds)
+    return $seconds/60
+}
+
 function SimulateMatch {
-    $pitchWidth = 7
-    $pitchLength = 11
-    $ballX = 4
-    $ballY = 6
+    $pitchWidth = 21
+    $pitchLength = 31
+    $ballX = 11
+    $ballY = 16
     $minutes = 0
-    $timeStep = 1
-    for ($minutes = 0; $minutes -le 90; $minutes += $timeStep) {
-        #Write-Host "After $minutes minutes the ball is in area ($ballX, $ballY)."
+    $timeStep = 30
+    for ($seconds = 0; $seconds -le 90*60; $seconds += $timeStep) {
+        if ($debug) {
+            $time = GetTime $seconds
+            Write-Host "After $time minutes the ball is in area ($ballX, $ballY)."
+        }
     }
     
     return MatchResult
 }
 
 function GetMatchPrediction {
-    $numberOfSimulations = 10
+    $numberOfSimulations = 2
     $simulations = @()
-    for ($simulationIndex = 0; $simulationIndex -le $numberOfSimulations; $simulationIndex++) {
+    for ($simulationIndex = 0; $simulationIndex -lt $numberOfSimulations; $simulationIndex++) {
         $simulations += SimulateMatch
     }
+    
+#    $simulationResults = $simulations | group 
     
     $prediction = MatchPrediction
     $prediction.ResultProbabilities += ResultProbability (MatchResult 1 0) 0.1

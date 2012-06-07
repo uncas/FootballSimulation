@@ -1,10 +1,11 @@
-﻿$debug = $True
+﻿$debug = $False
 
 function MatchResult {
     param ($team1Goals = 0, $team2Goals = 0)
-    $this = "" | Select Team1Goals, Team2Goals
+    $this = "" | Select Team1Goals, Team2Goals, Description
     $this.Team1Goals = $team1Goals
     $this.Team2Goals = $team2Goals
+    $this.Description = "$team1Goals-$team2Goals"
     return $this
 }
 
@@ -49,17 +50,33 @@ function SimulateMatch {
 }
 
 function GetMatchPrediction {
-    $numberOfSimulations = 2
-    $simulations = @()
+    $numberOfSimulations = 10
+    $simulations = @{}
     for ($simulationIndex = 0; $simulationIndex -lt $numberOfSimulations; $simulationIndex++) {
-        $simulations += SimulateMatch
+        $simulationResult = SimulateMatch
+        $key = $simulationResult.Description
+        if (!($simulations.ContainsKey($key))) {
+            $resultProbability = ResultProbability $simulationResult 0
+            $simulations.Add($key, $resultProbability)
+        }
+        
+        $item = $simulations.Get_Item($key)
+        $item.Probability += 1/$numberOfSimulations
     }
     
-#    $simulationResults = $simulations | group 
-    
     $prediction = MatchPrediction
-    $prediction.ResultProbabilities += ResultProbability (MatchResult 1 0) 0.1
-    $prediction.ResultProbabilities += ResultProbability (MatchResult 0 1) 0.1
+    
+    $y = $simulations.GetEnumerator() | Select Value
+    foreach ($x in $y) {
+        $prediction.ResultProbabilities += $x.Value
+    }
+
+    foreach ($item in $prediction.ResultProbabilities) {
+        Write-Host "Case:"
+        Write-Host $item.Result
+        Write-Host $item.Probability
+    }
+    
     return $prediction
 }
 

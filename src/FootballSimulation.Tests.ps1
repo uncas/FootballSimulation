@@ -22,7 +22,6 @@ Describe "GetMatchPredictions" {
         $probabilityX.should.be(100-$probability1-$probability2)
         $resultProbabilities = $prediction.ResultProbabilities
         $result10 = GetResultProbability $resultProbabilities 1 0
-        Write-Host $result10.Result
         $result01 = GetResultProbability $resultProbabilities 0 1
         $result10.Probability.should.be($result01.Probability)
         

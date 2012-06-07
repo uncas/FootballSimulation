@@ -1,18 +1,27 @@
 ﻿function MatchResult {
     param ($team1Goals = 0, $team2Goals = 0)
-    $matchResult = "" | Select Team1Goals,Team2Goals
-    $matchResult.Team1Goals = $team1Goals
-    $matchResult.Team2Goals = $team2Goals
-    return $matchResult
+    $this = "" | Select Team1Goals, Team2Goals
+    $this.Team1Goals = $team1Goals
+    $this.Team2Goals = $team2Goals
+    return $this
+}
+
+function ResultProbability {
+    param ($result, $probability)
+    $this = "" | Select Result, Probability
+    $this.Result = $result
+    $this.Probability = $probability
+    return $this
 }
 
 function MatchPrediction {
     param ($probability1 = 33, $probabilityX = 34, $probability2 = 33)
-    $matchPrediction = "" | Select Probability1,ProbabilityX,Probability2
-    $matchPrediction.Probability1 = $probability1
-    $matchPrediction.ProbabilityX = $probabilityX
-    $matchPrediction.Probability2 = $probability2
-    return $matchPrediction
+    $this = "" | Select Probability1, ProbabilityX, Probability2, ResultProbabilities
+    $this.Probability1 = $probability1
+    $this.ProbabilityX = $probabilityX
+    $this.Probability2 = $probability2
+    $this.ResultProbabilities = @()
+    return $this
 }
 
 function SimulateMatch {
@@ -36,7 +45,10 @@ function GetMatchPrediction {
         $simulations += SimulateMatch
     }
     
-    return MatchPrediction
+    $prediction = MatchPrediction
+    $prediction.ResultProbabilities += ResultProbability (MatchResult 1 0) 0.1
+    $prediction.ResultProbabilities += ResultProbability (MatchResult 0 1) 0.1
+    return $prediction
 }
 
 function RunMatch {

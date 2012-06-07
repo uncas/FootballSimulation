@@ -46,11 +46,14 @@ function SimulateMatch {
         }
     }
     
-    return MatchResult
+    $team1Goals = Get-Random 5
+    $team2Goals = Get-Random 5
+    
+    return MatchResult $team1Goals $team2Goals
 }
 
 function GetMatchPrediction {
-    $numberOfSimulations = 10
+    $numberOfSimulations = 1000
     $simulations = @{}
     for ($simulationIndex = 0; $simulationIndex -lt $numberOfSimulations; $simulationIndex++) {
         $simulationResult = SimulateMatch
@@ -65,6 +68,8 @@ function GetMatchPrediction {
     }
     
     $prediction = MatchPrediction
+    
+    $simulations = $simulations.GetEnumerator() | Sort-Object Name
     
     $y = $simulations.GetEnumerator() | Select Value
     foreach ($x in $y) {

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 
 namespace Uncas.FootballSimulation.Tests
 {
@@ -11,19 +12,21 @@ namespace Uncas.FootballSimulation.Tests
         public void EvaluateMatch_EvenMatch_EvenProbabilities()
         {
             var match = new FootballMatch();
-            EvaluationResult evaluationResult = 
+            EvaluationResult evaluationResult =
                 _evaluationService.EvaluateMatch(match);
 
             Assert.NotNull(evaluationResult);
-            double firstTeamWins = 
+            double firstTeamWins =
                 evaluationResult.GetWinnerProbability(Winner.FirstTeam);
-            double secondTeamWins = 
+            double secondTeamWins =
                 evaluationResult.GetWinnerProbability(Winner.SecondTeam);
             double draw =
                 evaluationResult.GetWinnerProbability(Winner.Draw);
 
-            Assert.AreEqual(firstTeamWins, secondTeamWins);
-            Assert.AreEqual(1d, firstTeamWins + secondTeamWins + draw);
+            Assert.Less(Math.Abs(firstTeamWins - secondTeamWins), 0.1d);
+            Assert.Less(
+                Math.Abs(firstTeamWins + secondTeamWins + draw - 1d),
+                0.000001d);
         }
     }
 }

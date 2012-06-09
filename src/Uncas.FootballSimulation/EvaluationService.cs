@@ -10,7 +10,7 @@ namespace Uncas.FootballSimulation
         public EvaluationResult EvaluateMatch(FootballMatch match)
         {
             var result = new EvaluationResult();
-            const int numberOfSimulations = 1000;
+            const int numberOfSimulations = 100;
             for (int simulationIndex = 0;
                 simulationIndex < numberOfSimulations;
                 simulationIndex++)

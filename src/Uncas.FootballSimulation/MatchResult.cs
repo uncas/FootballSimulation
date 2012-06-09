@@ -15,6 +15,17 @@
             }
         }
 
+        public static bool operator ==(MatchResult first, MatchResult second)
+        {
+            return first.Goals1 == second.Goals1 &&
+                first.Goals2 == second.Goals2;
+        }
+
+        public static bool operator !=(MatchResult first, MatchResult second)
+        {
+            return !(first == second);
+        }
+
         public override string ToString()
         {
             return string.Format(

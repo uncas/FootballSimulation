@@ -50,7 +50,7 @@ namespace Uncas.FootballSimulation
             _ballPosition = GetCenter();
         }
 
-        private static FieldPosition GetCenter()
+        public static FieldPosition GetCenter()
         {
             return new FieldPosition(GetWidthCenter(), GetLengthCenter());
         }

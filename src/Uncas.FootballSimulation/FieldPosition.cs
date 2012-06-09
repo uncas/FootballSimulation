@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Uncas.FootballSimulation
+﻿namespace Uncas.FootballSimulation
 {
     public struct FieldPosition
     {
@@ -12,7 +7,6 @@ namespace Uncas.FootballSimulation
 
         public FieldPosition(int widthPosition, int lengthPosition)
         {
-            // TODO: Complete member initialization
             this._x = widthPosition;
             this._y = lengthPosition;
         }
@@ -53,6 +47,19 @@ namespace Uncas.FootballSimulation
         public static bool operator !=(FieldPosition a, FieldPosition b)
         {
             return !(a == b);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = (FieldPosition)obj;
+            if (other == null)
+                return false;
+            return this == other;
+        }
+
+        public override int GetHashCode()
+        {
+            return string.Format("{0}-{1}", _x, _y).GetHashCode();
         }
     }
 }

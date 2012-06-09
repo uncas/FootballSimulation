@@ -1,4 +1,7 @@
-﻿namespace Uncas.FootballSimulation
+﻿using System;
+using System.Linq;
+
+namespace Uncas.FootballSimulation
 {
     public class EvaluationService
     {
@@ -6,15 +9,23 @@
 
         public EvaluationResult EvaluateMatch(FootballMatch match)
         {
-            const int numberOfSimulations = 10;
+            var result = new EvaluationResult();
+            const int numberOfSimulations = 1000;
             for (int simulationIndex = 0;
                 simulationIndex < numberOfSimulations;
                 simulationIndex++)
             {
-                MatchResult result = _simulationEngine.SimulateMatch(match);
+                MatchResult matchResult = _simulationEngine.SimulateMatch(match);
+                result.AddResult(matchResult);
             }
 
-            return new EvaluationResult();
+            foreach (ResultProbability resultProbability in
+                result.Results.OrderByDescending(r => r.Count))
+            {
+                Console.WriteLine(resultProbability);
+            }
+
+            return result;
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uncas.FootballSimulation", "src\Uncas.FootballSimulation\Uncas.FootballSimulation.csproj", "{3A46BD37-A337-4FFD-86EC-330B17F48876}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uncas.FootballSimulation.Tests", "test\Uncas.FootballSimulation.Tests\Uncas.FootballSimulation.Tests.csproj", "{2E49B501-CF9F-4BA0-BA87-477E8021F4A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A46BD37-A337-4FFD-86EC-330B17F48876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A46BD37-A337-4FFD-86EC-330B17F48876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A46BD37-A337-4FFD-86EC-330B17F48876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A46BD37-A337-4FFD-86EC-330B17F48876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E49B501-CF9F-4BA0-BA87-477E8021F4A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E49B501-CF9F-4BA0-BA87-477E8021F4A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E49B501-CF9F-4BA0-BA87-477E8021F4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E49B501-CF9F-4BA0-BA87-477E8021F4A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

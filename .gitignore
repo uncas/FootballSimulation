@@ -1,1 +1,6 @@
 packages/
+bin/
+obj/
+*.suo
+*.csproj.user
+*.ncrunch*

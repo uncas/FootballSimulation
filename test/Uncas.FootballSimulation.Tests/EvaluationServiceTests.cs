@@ -2,25 +2,28 @@
 
 namespace Uncas.FootballSimulation.Tests
 {
-    public class EvaluationService
-    {
-        public EvaluationResult EvaluateMatch()
-        {
-            return new EvaluationResult();
-        }
-    }
-
     [TestFixture]
     public class EvaluationServiceTests
     {
         private EvaluationService _evaluationService = new EvaluationService();
 
         [Test]
-        public void EvaluateMatch()
+        public void EvaluateMatch_EvenMatch_EvenProbabilities()
         {
-            EvaluationResult evaluationResult = _evaluationService.EvaluateMatch();
+            var match = new FootballMatch();
+            EvaluationResult evaluationResult = 
+                _evaluationService.EvaluateMatch(match);
 
             Assert.NotNull(evaluationResult);
+            double firstTeamWins = 
+                evaluationResult.GetWinnerProbability(Winner.FirstTeam);
+            double secondTeamWins = 
+                evaluationResult.GetWinnerProbability(Winner.SecondTeam);
+            double draw =
+                evaluationResult.GetWinnerProbability(Winner.Draw);
+
+            Assert.AreEqual(firstTeamWins, secondTeamWins);
+            Assert.AreEqual(1d, firstTeamWins + secondTeamWins + draw);
         }
     }
 }

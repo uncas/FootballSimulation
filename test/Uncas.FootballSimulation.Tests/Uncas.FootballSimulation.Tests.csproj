@@ -45,12 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EvaluationResult.cs" />
+    <Compile Include="EvaluationResultTests.cs" />
     <Compile Include="EvaluationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Uncas.FootballSimulation\Uncas.FootballSimulation.csproj">
+      <Project>{3A46BD37-A337-4FFD-86EC-330B17F48876}</Project>
+      <Name>Uncas.FootballSimulation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
